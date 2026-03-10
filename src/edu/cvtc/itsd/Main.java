@@ -41,10 +41,20 @@ public class Main {
     public void insertString(FilterBypass fb, int offset, String stringToAdd, AttributeSet attr)
         throws BadLocationException
     {
-      if (fb.getDocument() != null) {
-        super.insertString(fb, offset, stringToAdd, attr);
+      if (fb.getDocument() == null) {
+        Toolkit.getDefaultToolkit().beep();
+        return;
       }
-      else {
+
+      int length = fb.getDocument().getLength() + stringToAdd.length();
+
+      if (length <= MAX_LENGTH) {
+        super.insertString(fb, offset, stringToAdd, attr);
+
+        if (length == MAX_LENGTH) {
+          SwingUtilities.invokeLater(Main::processCard);
+        }
+      } else {
         Toolkit.getDefaultToolkit().beep();
       }
     }
@@ -53,10 +63,20 @@ public class Main {
     public void replace(FilterBypass fb, int offset, int lengthToDelete, String stringToAdd, AttributeSet attr)
         throws BadLocationException
     {
-      if (fb.getDocument() != null) {
-        super.replace(fb, offset, lengthToDelete, stringToAdd, attr);
+      if (fb.getDocument() == null) {
+        Toolkit.getDefaultToolkit().beep();
+        return;
       }
-      else {
+
+      int length = fb.getDocument().getLength() + stringToAdd.length() - lengthToDelete;
+
+      if (length <= MAX_LENGTH) {
+        super.replace(fb, offset, lengthToDelete, stringToAdd, attr);
+
+        if (length == MAX_LENGTH) {
+          SwingUtilities.invokeLater(Main::processCard);
+        }
+      } else {
         Toolkit.getDefaultToolkit().beep();
       }
     }
@@ -258,6 +278,7 @@ public class Main {
     fieldNumber.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     fieldNumber.setBackground(Color.green);
     fieldNumber.setForeground(Color.magenta);
+
     panelMain.add(fieldNumber);
 
     JButton updateButton = new JButton("Update");
