@@ -290,6 +290,13 @@ public class Main {
     labelState.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     labelState.setForeground(Color.magenta);
     panelStatus.add(labelState);
+    
+    buttonAcknowledge = new JButton("Return");
+    buttonAcknowledge.addActionListener(handler);
+    buttonAcknowledge.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    buttonAcknowledge.setForeground(Color.green);
+    panelStatus.add(buttonAcknowledge);
+    panelStatus.add(Box.createVerticalGlue());
 
     panelStatus.add(Box.createVerticalGlue());
 

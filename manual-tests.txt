@@ -70,4 +70,12 @@ Use `./build.sh` to build CiCo and `./run.sh` to run it if using the command lin
 ## Expected Results
 * The field should not allow non-numeric characters to be entered and should not display them.
 
+# Module 5: Add a return button to the main panel
+
+## Test steps
+1. Build and run CiCo.
+2. Enter 00000000 into the field and click Update.
+
+## Expected Results
+* The status panel should have a return button that allows the user to return to the status panel before the timeout occurs.
 
