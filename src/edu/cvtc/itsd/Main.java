@@ -43,7 +43,7 @@ public class Main {
     {
       if (fb.getDocument() != null) {
         super.insertString(fb, offset, stringToAdd, attr);
-
+        int length = fb.getDocument().getLength();  
         if (length == MAX_LENGTH) {
           SwingUtilities.invokeLater(Main::processCard);
         }
@@ -56,9 +56,13 @@ public class Main {
     public void replace(FilterBypass fb, int offset, int lengthToDelete, String stringToAdd, AttributeSet attr)
         throws BadLocationException
     {
-      // Only allow digits with regex.
-      if (fb.getDocument() != null && stringToAdd.matches("\\d*")) {
       if (fb.getDocument() == null) {
+        Toolkit.getDefaultToolkit().beep();
+        return;
+      }
+
+      // Only allow digits with regex.
+      if (!stringToAdd.matches("\\d*")) {
         Toolkit.getDefaultToolkit().beep();
         return;
       }
@@ -74,6 +78,7 @@ public class Main {
       } else {
         Toolkit.getDefaultToolkit().beep();
       }
+
     }
   }
 
